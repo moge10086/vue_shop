@@ -65,7 +65,7 @@
         <el-table-column type="index"></el-table-column>
         <el-table-column label="角色名称" prop="roleName"></el-table-column>
         <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
-        <el-table-column label="操作" width="300px">
+        <el-table-column label="操作" width="350px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
             <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
@@ -74,7 +74,7 @@
               type="warning"
               icon="el-icon-setting"
               @click="showSetRightDialog(scope.row)"
-            >分配权限</el-button>
+            >分配权限{{scope.row.rightNum}}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -127,6 +127,17 @@ export default {
         return this.$message.error('获取角色列表失败!')
       }
       this.rolelist = res.data
+      this.rolelist.forEach(obj => {
+        obj.rightNum = [0, 0, 0]
+        obj.rightNum[0] += obj.children.length
+        obj.children.forEach(obj1 => {
+          obj.rightNum[1] += obj1.children.length
+          obj1.children.forEach(obj2 => {
+            obj.rightNum[2] += obj2.children.length
+          })
+        })
+        console.log(obj.rightNum)
+      })
       //   console.log(this.rolelist)
     },
     async removeRightById (role, rightId) {
