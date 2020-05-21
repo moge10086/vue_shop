@@ -179,6 +179,48 @@ export default {
       // 把获取到的权限数据保存到 data 中
       this.rightslist = res.data
       // console.log(this.rightslist)
+      // const test = [
+      //   {
+      //     id: '1',
+      //     name: '我是一级权限1',
+      //     belong: null
+      //   },
+      //   {
+      //     id: '2',
+      //     name: '我是2级权限1',
+      //     belong: '1'
+      //   },
+      //   {
+      //     id: '4',
+      //     name: '我是3级权限1',
+      //     belong: '2'
+      //   },
+      //   {
+      //     id: '3',
+      //     name: '我是2级权限2',
+      //     belong: '1'
+      //   },
+      //   {
+      //     id: '5',
+      //     name: '我是3级权限3',
+      //     belong: '3'
+      //   }
+      // ]
+      // test.sort((a, b) => (Number.parseInt(a.id) - Number.parseInt(b.id)))
+      // for (const value of test) {
+      //   value.authName = value.name
+      //   if (!value.belong) {
+      //     continue
+      //   }
+      //   const parent = value.belong - 1
+      //   if (!test[parent].children) {
+      //     test[parent].children = []
+      //   }
+      //   test[parent].children.push(value)
+      // }
+      // this.rightslist = test.filter((a) => (!a.belong))
+      // console.log(test)
+      // console.log(this.rightslist)
 
       // 递归获取三级节点的Id
       this.getLeafKeys(role, this.defKeys)
