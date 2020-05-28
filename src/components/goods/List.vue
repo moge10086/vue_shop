@@ -69,14 +69,23 @@ export default {
     // 根据分页获取对应的商品列表
     async getGoodsList () {
       const { data: res } = await this.$http.get('goods', {
-        params: this.queryInfo
+        params: this.queryInfo,
+        timeout: 100
       })
-
-      if (res.meta.status !== 200) {
+        .catch(err => {
+          this.goodslist = []
+          return err
+        })
+      console.log('服务器异常无法显示')
+      if (!res || !res.meta || res.meta.status !== 200) {
         return this.$message.error('获取商品列表失败！')
       }
 
-      this.$message.success('获取商品列表成功！')
+      this.$message({
+        message: '获取商品列表成功',
+        type: 'success',
+        duration: 500 // 时间过长
+      })
       console.log(res.data)
       this.goodslist = res.data.goods
       this.total = res.data.total
